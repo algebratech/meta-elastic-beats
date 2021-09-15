@@ -16,17 +16,17 @@ CGO_LDFLAGS += "--sysroot=${STAGING_DIR_TARGET} -L${STAGING_LIBDIR}"
 LICENSE = "Apache-2"
 LIC_FILES_CHKSUM = "file://src/${GO_IMPORT}/LICENSE.txt;md5=00294979737b05a575493ff7b723f25c"
 
-# PV = "7.13.2"
-SRCREV = "${AUTOREV}"
+PV = "7.8.0"
+#SRCREV = "${AUTOREV}"
 
-FILESEXTRAPATHS:append = "${THISDIR}/elastic-beats:"
+FILESEXTRAPATHS_append = "${THISDIR}/elastic-beats:"
 
 SRC_URI = " \
-        git://${GO_IMPORT}.git \
+        git://${GO_IMPORT}.git;branch=7.8;tag=v${PV} \
         file://${GO_PACKAGE}.yml \
         "
 
-RDEPENDS:${PN}-dev += "bash"
+RDEPENDS_${PN}-dev += "bash"
 
 do_compile() {
     cd ${GO_PACKAGE}
@@ -75,7 +75,7 @@ EOF
     chmod +x ${WORKDIR}/${GO_PACKAGE}
 }
 
-FILES:${PN} += " \
+FILES_${PN} += " \
         ${datadir} \
         ${sysconfdir} \
 "
